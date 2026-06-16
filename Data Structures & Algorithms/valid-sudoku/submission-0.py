@@ -1,0 +1,23 @@
+from collections import defaultdict
+
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        rows = defaultdict(set)
+        cols = defaultdict(set)
+        grid = defaultdict(set)
+
+        for r in range(9):
+            for c in range(9):
+                if board[r][c] == '.':
+                    continue
+
+                num = int(board[r][c])
+
+                if (num in rows[r]) or (num in cols[c]) or (num in grid[(r // 3, c // 3)]):
+                    return False
+
+                rows[r].add(num)
+                cols[c].add(num)
+                grid[(r // 3, c // 3)].add(num)
+
+        return True
